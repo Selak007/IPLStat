@@ -13,10 +13,14 @@ const BatterVsBowlerApp = () => {
   const [stats, setStats] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
+  // API base URL based on environment (hardcoded for now)
+  const apiBaseUrl =
+    window.location.hostname === "localhost" ? "http://localhost:5000" : "https://iplstat.onrender.com";
+
   const handlePlayerSearch = (inputValue, type) => {
     if (!inputValue) return;
     axios
-      .get("http://localhost:5000/search", {
+      .get(`${apiBaseUrl}/search`, {
         params: { query: inputValue },
       })
       .then((response) => {
@@ -36,11 +40,11 @@ const BatterVsBowlerApp = () => {
   useEffect(() => {
     if (batter && bowler) {
       axios
-        .get(`http://localhost:5000/stats/${batter.value}/${bowler.value}`)
+        .get(`${apiBaseUrl}/stats/${batter.value}/${bowler.value}`)
         .then((response) => setStats(response.data))
         .catch((error) => console.error(error));
     }
-  }, [batter, bowler]);
+  }, [batter, bowler, apiBaseUrl]);
 
   return (
     <div className={`app-container ${darkMode ? "dark" : "light"}`}>
@@ -129,3 +133,4 @@ const BatterVsBowlerApp = () => {
 };
 
 export default BatterVsBowlerApp;
+
