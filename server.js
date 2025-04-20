@@ -8,10 +8,10 @@ app.use(cors());
 
 // Set up MySQL connection pool (improves efficiency)
 const db = mysql.createPool({
-  host: 'localhost',           // Change this to the correct host in production
-  user: 'root',                // Your MySQL username
-  password: 'Sharpeyecoder373!', // Your MySQL password
-  database: 'ipl',             // Your MySQL database
+  host: 'bt25pcuxsdcuqqcj1emb-mysql.services.clever-cloud.com',           // Change this to the correct host in production
+  user: 'ukdijgjedbzrtirx',                // Your MySQL username
+  password: 'LgVmtIhzL8tqFkb9MVgy', // Your MySQL password
+  database: 'bt25pcuxsdcuqqcj1emb',             // Your MySQL database
   waitForConnections: true,    // Allows queuing of connection requests when all connections are in use
   connectionLimit: 10,         // Maximum number of connections
   queueLimit: 0                // Maximum number of queued connection requests
