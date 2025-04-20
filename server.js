@@ -59,7 +59,7 @@ app.get('/stats/:batter/:bowler', (req, res) => {
 });
 
 // Use dynamic port (important for Render!)
-const PORT = process.env.PORT || 5001;
+const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
