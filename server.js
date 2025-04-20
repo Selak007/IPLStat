@@ -6,21 +6,25 @@ const app = express();
 // Enable CORS for your frontend
 app.use(cors());
 
-// Set up MySQL connection (No .env)
-const db = mysql.createConnection({
-  host: 'localhost',           // For local testing; change if needed
+// Set up MySQL connection pool (improves efficiency)
+const db = mysql.createPool({
+  host: 'localhost',           // Change this to the correct host in production
   user: 'root',                // Your MySQL username
   password: 'Sharpeyecoder373!', // Your MySQL password
   database: 'ipl',             // Your MySQL database
+  waitForConnections: true,    // Allows queuing of connection requests when all connections are in use
+  connectionLimit: 10,         // Maximum number of connections
+  queueLimit: 0                // Maximum number of queued connection requests
 });
 
-// Connect to MySQL
-db.connect((err) => {
+// Test MySQL connection (important for development)
+db.getConnection((err, connection) => {
   if (err) {
     console.error('❌ Error connecting to MySQL:', err);
     return;
   }
   console.log('✅ Connected to MySQL!');
+  connection.release(); // Release connection back to the pool
 });
 
 // Search players
@@ -63,4 +67,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
-
